@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>House Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 1px auto;
+            /* max-width: 600px; */
+        }
+
+        .app-container {
+            background-image: url("../static/houses_prices.jpg");
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .form-container {
+            background: white !important;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            height: 23px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            margin-top: 20px;
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 18px;
+            color: green;
+        }
+
+        .title {
+            margin-bottom: 40px;
+        }
+
+        .button {
+            background: #007bff;
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="form-container">
+
+            <center><h2>House Price Prediction</h2></center>
+            <center>
+            <form method="POST">
+                <label for="feature1"><center>Postcode:</center></label>
+                <input type="text" name="feature1" required><br><br>
+        
+                <div class="slider-container">
+                    <label for="feature2">Property Type:</label>
+                    <input type="range" id="feature2" name="feature2" min="0" max="4" step="1">
+                    <span id="propertyTypeValue">2</span>
+                </div>
+        
+                <div class="slider-container">
+                    <label for="feature3">New Build:</label>
+                    <input type="range" id="feature3" name="feature3" min="0" max="1" step="1">
+                    <span id="newBuildValue">0</span>
+                </div>
+        
+                <div class="slider-container">
+                    <label for="feature4">Freehold:</label>
+                    <input type="range" id="feature4" name="feature4" min="0" max="1" step="1">
+                    <span id="freeholdValue">0</span>
+                </div>
+        
+                <label for="feature5">Year:</label>
+                <input type="text" name="feature5" required><br><br>
+        
+                <label for="feature6">Month:</label>
+                <input type="text" name="feature6" required><br><br>
+        
+                <button type="submit">Predict Price</button>
+            </center>
+            </form>
+        
+            {% if prediction is not none %}
+                <h3>Predicted Price: {{ prediction }}</h3>
+            {% endif %}
+        
+            <script>
+                function updateSliderValue(sliderId, outputId) {
+                    const slider = document.getElementById(sliderId);
+                    const output = document.getElementById(outputId);
+                    slider.addEventListener('input', function () {
+                        output.textContent = this.value;
+                    });
+                }
+        
+                updateSliderValue("feature2", "propertyTypeValue");
+                updateSliderValue("feature3", "newBuildValue");
+                updateSliderValue("feature4", "freeholdValue");
+            </script>
+        </body>
+        </html>
